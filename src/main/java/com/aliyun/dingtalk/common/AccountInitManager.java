@@ -27,7 +27,6 @@ public class AccountInitManager {
         Config config = new Config();
         config.protocol = "https";
         config.regionId = "central";
-        config.endpoint = "pre-api.dingtalk.com";
 
         return new Client(config);
     }

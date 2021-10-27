@@ -27,8 +27,6 @@ public class IsvAccountInitManager {
         Config config = new Config();
         config.protocol = "https";
         config.regionId = "central";
-        // 预发环境测试
-        config.endpoint = "pre-api.dingtalk.com";
 
         return new Client(config);
     }
