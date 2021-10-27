@@ -81,11 +81,11 @@ public class DingTalkFinanceISVServiceImpl implements DingTalkFinanceISVService 
      * 创建钉工牌码用户实例
      * <p>
      * 调用本接口,为用户创建钉工牌码实例,主要用于访客、会展等临时证场景。
-     * https://developers.dingtalk.com/document/app/create-a-user-code-instance?spm=ding_open_doc.document.0.0.1e9b40abwziX3t#doc-api-dingtalk-CreateUserCodeInstance
+     * https://developers.dingtalk.com/document/app/create-a-user-code-instance
      * </p>
      *
      * @param requestId            业务幂等ID（必填）
-     * @param codeIdentity         码标识，由钉钉颁发，需联系钉钉技术同学说明使用场景，请阅读链接文档（必填）
+     * @param codeIdentity         码标识，由钉钉颁发，DT_VISITOR: 访客码 DT_CONFERENCE: 会展码，请阅读链接文档（必填）
      * @param codeValue            码值 固定码不为空，动态码可空（可空）
      * @param status               OPEN：开启 CLOSED：关闭 INVALID：失效，传入关闭状态需要用户手动开启后才会渲染二维码。（必填）
      * @param corpId               企业corpId （必填）
@@ -152,7 +152,7 @@ public class DingTalkFinanceISVServiceImpl implements DingTalkFinanceISVService 
      * 更新钉工牌用户实例
      * <p>
      * 更新用户钉工牌码的相关信息
-     * https://developers.dingtalk.com/document/app/update-user-code-instance?spm=ding_open_doc.document.0.0.1e9b40abwziX3t#doc-api-dingtalk-UpateUserCodeInstance
+     * https://developers.dingtalk.com/document/app/update-user-code-instance
      * </p>
      *
      * @param codeId               用户码ID 创建接口返回值
@@ -224,7 +224,7 @@ public class DingTalkFinanceISVServiceImpl implements DingTalkFinanceISVService 
      * 解码钉工牌码
      * <p>
      * 调用本接口解析钉工牌电子码，获取关联的企业、用户userid等信息。
-     * https://developers.dingtalk.com/document/app/decoding-dingtalk-payment-code?spm=ding_open_doc.document.0.0.1e9b40abwziX3t#doc-api-dingtalk-DecodePayCode
+     * https://developers.dingtalk.com/document/app/decoding-dingtalk-payment-code
      * </p>
      *
      * @param payCode   码值 （硬件扫描获取码值）
@@ -271,7 +271,7 @@ public class DingTalkFinanceISVServiceImpl implements DingTalkFinanceISVService 
      * <p>
      * <p/>
      * 用户使用钉工牌码扫码支付完成后，可调用本接口同步支付结果，并通知用户完成消费，同时为用户记录账单。
-     * https://developers.dingtalk.com/document/app/notify-dingtalk-payment-code-payment-result?spm=ding_open_doc.document.0.0.1e9b40abwziX3t#doc-api-dingtalk-NotifyPayCodePayResult
+     * https://developers.dingtalk.com/document/app/notify-dingtalk-payment-code-payment-result
      * </p>
      *
      * @param payCode              码值
@@ -372,12 +372,12 @@ public class DingTalkFinanceISVServiceImpl implements DingTalkFinanceISVService 
      * 通知钉工牌码退款结果
      * <p/>
      * 用户使用钉工牌码支付后，如果发生退款，退款完成后，调用本接口同步退款结果，生成对应账单。
-     * https://developers.dingtalk.com/document/app/notification-nail-badge-code-refund-result?spm=a2q3p.21071111.0.0.68331cfa2MUIoT
+     * https://developers.dingtalk.com/document/app/dingtalk-payment-code-refund-information-synchronization-operation
      * </p>
      *
      * @param corpId                                  企业ID
      * @param userId                                  用户ID
-     * @param tradeNo                                 交易单号
+     * @param tradeNo                                 交易单号，和通知支付结果时候的单号保持一致
      * @param refundOrderNo                           退款单号
      * @param remark                                  备注
      * @param refundAmount                            退款金额
@@ -457,7 +457,7 @@ public class DingTalkFinanceISVServiceImpl implements DingTalkFinanceISVService 
      * 同步钉工牌码验证结果
      * <p>
      * 用户扫码验证后，调用本接口同步验证结果。
-     * https://developers.dingtalk.com/document/app/sync-pin-badge-code-verification-result?spm=ding_open_doc.document.0.0.1e9b40abwziX3t#doc-api-dingtalk-NotifyVerifyResult
+     * https://developers.dingtalk.com/document/app/sync-pin-badge-code-verification-result
      * </p>
      *
      * @param payCode              码值。
@@ -515,7 +515,7 @@ public class DingTalkFinanceISVServiceImpl implements DingTalkFinanceISVService 
      * 配置企业钉工牌
      * <p>
      * 调用本接口配置企业钉工牌。
-     * https://developers.dingtalk.com/document/app/set-up-enterprise-payment-code-configuration-interface?spm=ding_open_doc.document.0.0.1e9b40abwziX3t#doc-api-dingtalk-SaveCorpPayCode
+     * https://developers.dingtalk.com/document/app/set-up-enterprise-payment-code-configuration-interface
      * </p>
      *
      * @param corpId       开通的企业corpId。

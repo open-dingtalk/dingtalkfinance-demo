@@ -85,7 +85,7 @@ public class DingTalkFinanceServiceImpl implements DingTalkFinanceService {
      * </p>
      *
      * @param requestId            业务幂等ID（必填）
-     * @param codeIdentity         码标识，由钉钉颁发，需联系钉钉技术同学说明使用场景，请阅读链接文档（必填）
+     * @param codeIdentity         码标识，由钉钉颁发，DT_VISITOR: 访客码 DT_CONFERENCE: 会展码，请阅读链接文档（必填）
      * @param codeValue            码值 固定码不为空，动态码可空（可空）
      * @param status               OPEN：开启 CLOSED：关闭 INVALID：失效，传入关闭状态需要用户手动开启后才会渲染二维码。（必填）
      * @param corpId               企业corpId （必填）
@@ -378,7 +378,7 @@ public class DingTalkFinanceServiceImpl implements DingTalkFinanceService {
      *
      * @param corpId                                  企业ID
      * @param userId                                  用户ID
-     * @param tradeNo                                 交易单号
+     * @param tradeNo                                 交易单号，和通知支付结果时候的单号保持一致
      * @param refundOrderNo                           退款单号
      * @param remark                                  备注
      * @param refundAmount                            退款金额

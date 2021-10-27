@@ -85,6 +85,29 @@ public class DingTalkFinanceIsvServiceController {
 
     /**
      * 创建钉工牌用户实例
+     * 示例入参：
+     {
+     "requestId": 123456,
+     "codeIdentity": "DT_VISITOR",
+     "status": "OPEN",
+     "corpId": "ding3954e38839604bd524f2f5cc6abecb85",
+     "userCorpRelationType": "INTERNAL_STAFF",
+     "userIdentity": "2813420619986718",
+     "gmtExpired": "2021-11-25 00:00:00",
+     "gmtStart": "2021-10-25 15:00:00",
+     "gmtEnd": "2021-11-25 00:00:00",
+     "extInfo": {
+         "corpAddress": "杭州未来组织park",
+         "applicantName": "张三",
+         "applyTime": "2021-10-25 12:12:12",
+         "visitorName": "李四",
+         "visitorMobile": "86-12345678901",
+         "visitorCorpInfo": "钉钉网络",
+         "visitorExtInfo": "访客ID：20210907001",
+         "remarks": "欢迎光临",
+         "corpWebsite": "www.dingtalk.com"
+     }
+     }
      *
      * @return 钉工牌实例-codeId
      */
@@ -105,7 +128,30 @@ public class DingTalkFinanceIsvServiceController {
 
     /**
      * 更新钉工牌用户实例
-     *
+     * 示例入参：
+     {
+     "requestId": 123456,
+     "codeId": "7f9155fd8b5366b8a0e1a2d65b9e3cd2267f33df7861a2c10c92f85bf300c560_123456",
+     "codeIdentity": "DT_VISITOR",
+     "status": "OPEN",
+     "corpId": "ding3954e38839604bd524f2f5cc6abecb85",
+     "userCorpRelationType": "INTERNAL_STAFF",
+     "userIdentity": "2813420619986718",
+     "gmtExpired": "2021-11-25 00:00:00",
+     "gmtStart": "2021-10-25 15:00:00",
+     "gmtEnd": "2021-11-25 00:00:00",
+     "extInfo": {
+         "corpAddress": "杭州未来组织park",
+         "applicantName": "瀚博",
+         "applyTime": "2021-10-25 12:12:12",
+         "visitorName": "郝汉森",
+         "visitorMobile": "86-12345678901",
+         "visitorCorpInfo": "海云钉钉网络",
+         "visitorExtInfo": "访客ID：20210907001",
+         "remarks": "欢迎光临",
+         "corpWebsite": "www.dingtalk.com"
+     }
+     }
      * @return 钉工牌实例-codeId
      */
     @PostMapping("/isv/updateinstance")
@@ -125,7 +171,11 @@ public class DingTalkFinanceIsvServiceController {
 
     /**
      * 解码钉工牌码
-     *
+     * 示例入参：
+     {
+         "payCode":"xxxx", // 码值可以通过手机扫描获取
+         "requestId":"250134742608720142-V0ami1d7o7vap4uwlx"  // 请求ID随机
+     }
      * @return 码值
      */
     @PostMapping("/isv/decode")
@@ -141,7 +191,41 @@ public class DingTalkFinanceIsvServiceController {
 
     /**
      * 同步钉工牌码支付结果
-     *
+     {
+     "amount":"0.01",
+     "chargeAmount":"0",
+     "corpId":"ding3954e38839604bd524f2f5cc6abecb85",
+     "gmtTradeCreate":"2021-10-26 12:11:24",
+     "gmtTradeFinish":"2021-10-26 12:11:24",
+     "isvOrgId":261399101,
+     "merchantName":"杭州钉钉网络科技有限公司",
+     "payChannelDetailList":[
+     {
+             "amount":"0.01",
+             "fundToolDetailList":[
+                 {
+                 "amount":"0.01",
+                 "extInfo":"",
+                 "fundToolName":"数字食堂余额",
+                 "gmtCreate":"2021-10-26 12:11:24",
+                 "gmtFinish":"2021-10-26 12:11:24",
+                 "promotionFundTool":false
+                 }
+             ],
+             "payChannelName":"数字食堂余额",
+             "payChannelOrderNo":"37164671863227332",
+             "payChannelType":"BALANCE",
+             "promotionAmount":"0.00"
+     }
+     ],
+     "payCode":"250134742608720142-V0ami1d7o7vap4uwlx",
+     "promotionAmount":"0",
+     "remark":"钉钉支付码",
+     "title":"陈军 下单 0.01 元（数字食堂）",
+     "tradeNo":"2021102612112383609613ecf6b2e232",
+     "tradeStatus":"SUCCESS",
+     "userId":"2813420619986718"
+     }
      * @return 同步结果
      */
     @PostMapping("/isv/notify")
@@ -161,7 +245,38 @@ public class DingTalkFinanceIsvServiceController {
 
     /**
      * 通知钉工牌码退款结果
-     *
+     * 示例入参：
+     {
+     "corpId": "ding3954e38839604bd524f2f5cc6abecb85",
+     "userId": "2813420619986718",
+     "tradeNo": "2021102612112383609613ecf6b2e232",  // 通知退款时的交易单号应该和同步支付结果时的单号一致
+     "refundOrderNo": "2021102612112383609613ecf6b2e223",
+     "remark": "钉钉退款",
+     "refundAmount": "0.01",
+     "refundPromotionAmount": "0.00",
+     "gmtRefund": "2021-10-26 12:11:24",
+     "payCode": "250134742608720142-V0ami1d7o7vap4uwlx",
+     "payChannelDetailList": [
+     {
+         "amount": "0.01",
+         "fundToolDetailList": [
+             {
+             "amount": "0.01",
+             "extInfo": "",
+             "fundToolName": "数字食堂余额",
+             "gmtCreate": "2021-10-26 12:11:24",
+             "gmtFinish": "2021-10-26 12:11:24",
+             "promotionFundTool": false
+             }
+         ],
+         "payChannelName": "数字食堂余额",
+         "payChannelOrderNo": "37164671863227332",
+         "payChannelRefundOrderNo": "37164671864327332",
+         "payChannelType": "BALANCE",
+         "promotionAmount": "0.00"
+     }
+     ]
+     }
      * @return 同步结果
      */
     @PostMapping("/isv/refund")
@@ -180,7 +295,15 @@ public class DingTalkFinanceIsvServiceController {
 
     /**
      * 同步钉工牌码验证结果
-     *
+     {
+         "corpId":"ding3954e38839604bd524f2f5cc6abecb85",
+         "payCode":"250134742608720142-V0ami1d7o7vap4uwlx",
+         "userCorpRelationType":"INTERNAL_STAFF",
+         "userIdentity":"2813420619986718",
+         "verifyLocation":"未来park",
+         "verifyResult":true,
+         "verifyTime":"2021-10-26 10:30:06"
+     }
      * @return 同步结果
      */
     @PostMapping("/isv/verify")
@@ -198,7 +321,14 @@ public class DingTalkFinanceIsvServiceController {
 
     /**
      * 企业创建码
-     *
+     {
+     "codeIdentity": "DT_VISITOR",
+     "status": "OPEN",
+     "corpId": "ding3954e388396xxxxx",
+     "extInfo": {
+     "xx_key": "xx_value"
+     }
+     }
      * @return 结果
      */
     @PostMapping("/isv/save")
