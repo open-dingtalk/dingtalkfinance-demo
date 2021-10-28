@@ -23,9 +23,15 @@
 
       2. 单击权限管理，然后搜索**付款码**对应的接口权限，单击**申请权限**。
 
-4. 获取接口调用凭证**AccessToken**，如何获取不同应用的凭证请参考[访问凭证概述](https://developers.dingtalk.com/document/app/authorization-overview?spm=ding_open_doc.document.0.0.65353799BrvFES#topic-2040646)。
+4. 获取接口调用凭证，如何获取不同应用的凭证请参考[访问凭证概述](https://developers.dingtalk.com/document/app/authorization-overview?spm=ding_open_doc.document.0.0.65353799BrvFES#topic-2040646)。
+     - 企业内部应用和第三方企业应用，获取**AccessToken**进行接口调用,请[参考](https://developers.dingtalk.com/document/app/obtain-the-access_token-of-an-internal-app)。
+
+     - 纯ISV身份应用，获取**SuiteAccessToken**进行接口调用,请[参考](https://developers.dingtalk.com/document/app/obtains-the-suite_acess_token-of-third-party-enterprise-applications)。
 
 5. 根据不同的使用场景，调用**钉工牌**相关接口。
+     - 门禁核验场景
+     - 临时会展场景
+     - 刷码消费场景
 
 # 运行准备
 ### 下载本项目至本地
@@ -53,3 +59,6 @@ dingtalk.suite_ticket=xxx
 springboot项目本地运行，通过postman测试使用各接口
 ![image2](https://img.alicdn.com/imgextra/i2/O1CN01QPHKDQ1cHr2sINE5Y_!!6000000003576-2-tps-870-1286.png)
 
+# 参考文档
+1. 钉工牌简介：https://developers.dingtalk.com/document/app/introduction-to-dingtalk-badge
+2. 如何调用钉工牌API：https://developers.dingtalk.com/document/app/application-for-dingtalk-badge-permission
