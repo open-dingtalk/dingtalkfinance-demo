@@ -94,8 +94,10 @@ public class DingTalkFinanceIsvServiceController {
      "userCorpRelationType": "INTERNAL_STAFF",
      "userIdentity": "2813420619986718",
      "gmtExpired": "2021-11-25 00:00:00",
-     "gmtStart": "2021-10-25 15:00:00",
-     "gmtEnd": "2021-11-25 00:00:00",
+     "availableTimes":[{
+         "gmtStart":"2021-10-25 15:00:00",
+         "gmtEnd":"2021-11-25 00:00:00"
+     }],
      "extInfo": {
          "corpAddress": "杭州未来组织park",
          "applicantName": "张三",
@@ -118,7 +120,7 @@ public class DingTalkFinanceIsvServiceController {
             return ServiceResult.getSuccessResult(dingTalkFinanceService.createCodeUserInstance(createInstanceRequest.getRequestId(),
                     createInstanceRequest.getCodeIdentity(), createInstanceRequest.getCodeValue(), createInstanceRequest.getStatus(),
                     createInstanceRequest.getCorpId(), createInstanceRequest.getUserCorpRelationType(), createInstanceRequest.getUserIdentity(),
-                    createInstanceRequest.getGmtExpired(), createInstanceRequest.getGmtStart(), createInstanceRequest.getGmtEnd(),
+                    createInstanceRequest.getGmtExpired(), createInstanceRequest.getAvailableTimes(),
                     createInstanceRequest.getExtInfo()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,8 +140,10 @@ public class DingTalkFinanceIsvServiceController {
      "userCorpRelationType": "INTERNAL_STAFF",
      "userIdentity": "2813420619986718",
      "gmtExpired": "2021-11-25 00:00:00",
-     "gmtStart": "2021-10-25 15:00:00",
-     "gmtEnd": "2021-11-25 00:00:00",
+     "availableTimes":[{
+         "gmtStart":"2021-10-25 15:00:00",
+         "gmtEnd":"2021-11-25 00:00:00"
+     }],
      "extInfo": {
          "corpAddress": "杭州未来组织park",
          "applicantName": "瀚博",
@@ -161,7 +165,7 @@ public class DingTalkFinanceIsvServiceController {
             return ServiceResult.getSuccessResult(dingTalkFinanceService.updateCodeUserInstance(updateInstanceRequest.getCodeId(),
                     updateInstanceRequest.getCodeIdentity(), updateInstanceRequest.getCodeValue(), updateInstanceRequest.getStatus(),
                     updateInstanceRequest.getCorpId(), updateInstanceRequest.getUserCorpRelationType(), updateInstanceRequest.getUserIdentity(),
-                    updateInstanceRequest.getGmtExpired(), updateInstanceRequest.getGmtStart(), updateInstanceRequest.getGmtEnd(),
+                    updateInstanceRequest.getGmtExpired(), updateInstanceRequest.getAvailableTimes(),
                     updateInstanceRequest.getExtInfo()));
         } catch (Exception e) {
             e.printStackTrace();

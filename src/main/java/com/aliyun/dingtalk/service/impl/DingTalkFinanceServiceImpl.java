@@ -6,6 +6,7 @@ package com.aliyun.dingtalk.service.impl;
 
 import com.aliyun.dingtalk.common.AccountInitManager;
 import com.aliyun.dingtalk.common.AppConfig;
+import com.aliyun.dingtalk.model.AvailableTime;
 import com.aliyun.dingtalk.service.DingTalkFinanceService;
 import com.aliyun.dingtalk.util.AccessTokenUtil;
 import com.aliyun.dingtalkbadge_1_0.Client;
@@ -92,15 +93,14 @@ public class DingTalkFinanceServiceImpl implements DingTalkFinanceService {
      * @param userCorpRelationType INTERNAL_STAFF：企业内部员工 EXTERNAL_CONTACT：外部联系人 NO_RELATION：普通用户与组织无关 （必填）
      * @param userIdentity         企业内部员工传入staffId，外部联系人传入外部联系人ID，无关系用户传入手机号 （必填）
      * @param gmtExpired           临时码过期时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtStart             有效时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtEnd               结束时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
+     * @param availableTimes       可用时间段, 格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
      * @return 码值
      * @throws Exception
      */
     @Override
     public String createBadgeCodeUserInstance(String requestId, String codeIdentity, String codeValue, String status,
                                               String corpId, String userCorpRelationType, String userIdentity, String gmtExpired,
-                                              String gmtStart, String gmtEnd, Map<String, ?> extInfo) throws Exception {
+                                              List<AvailableTime> availableTimes, Map<String, ?> extInfo) throws Exception {
         // 1、创建账户client
         Client client = accountInitManager.createClient();
         // 2、获取accessToken
@@ -112,8 +112,8 @@ public class DingTalkFinanceServiceImpl implements DingTalkFinanceService {
         createBadgeCodeUserInstanceHeaders.xAcsDingtalkAccessToken = accessToken;
         // 有效时间列表，对于连续时间段，只需传入一个对象即可，过期时间必须晚于最晚结束时间。
         CreateBadgeCodeUserInstanceRequest.CreateBadgeCodeUserInstanceRequestAvailableTimes availableTimes0 = new CreateBadgeCodeUserInstanceRequest.CreateBadgeCodeUserInstanceRequestAvailableTimes()
-                .setGmtStart(gmtStart)
-                .setGmtEnd(gmtEnd);
+                .setGmtStart(availableTimes.get(0).getGmtStart())
+                .setGmtEnd(availableTimes.get(0).getGmtEnd());
         CreateBadgeCodeUserInstanceRequest createBadgeCodeUserInstanceRequest = new CreateBadgeCodeUserInstanceRequest()
                 .setRequestId(requestId)
                 .setCodeIdentity(codeIdentity)
@@ -163,15 +163,14 @@ public class DingTalkFinanceServiceImpl implements DingTalkFinanceService {
      * @param userCorpRelationType INTERNAL_STAFF：企业内部员工 EXTERNAL_CONTACT：外部联系人 NO_RELATION：普通用户与组织无关
      * @param userIdentity         企业内部员工传入staffId，外部联系人传入外部联系人ID，无关系用户传入手机号
      * @param gmtExpired           临时码过期时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtStart             有效时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtEnd               结束时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
+     * @param availableTimes       可用时间段, 格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
      * @return 码ID
      * @throws Exception
      */
     @Override
     public String updateBadgeCodeUserInstance(String codeId, String codeIdentity, String codeValue, String status, String corpId,
-                                              String userCorpRelationType, String userIdentity, String gmtExpired, String gmtStart,
-                                              String gmtEnd, Map<String, ?> extInfo) throws Exception {
+                                              String userCorpRelationType, String userIdentity, String gmtExpired,
+                                              List<AvailableTime> availableTimes, Map<String, ?> extInfo) throws Exception {
         // 1、获取accessToken
         String accessToken = accessTokenUtil.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
         // 2、创建账户client
@@ -182,8 +181,8 @@ public class DingTalkFinanceServiceImpl implements DingTalkFinanceService {
         updateBadgeCodeUserInstanceHeaders.xAcsDingtalkAccessToken = accessToken;
         // 有效时间段需精确到时分秒，
         UpdateBadgeCodeUserInstanceRequest.UpdateBadgeCodeUserInstanceRequestAvailableTimes availableTimes0 = new UpdateBadgeCodeUserInstanceRequest.UpdateBadgeCodeUserInstanceRequestAvailableTimes()
-                .setGmtStart(gmtStart)
-                .setGmtEnd(gmtEnd);
+                .setGmtStart(availableTimes.get(0).getGmtStart())
+                .setGmtEnd(availableTimes.get(0).getGmtEnd());
 
         UpdateBadgeCodeUserInstanceRequest updateBadgeCodeUserInstanceRequest = new UpdateBadgeCodeUserInstanceRequest()
                 .setCodeId(codeId)

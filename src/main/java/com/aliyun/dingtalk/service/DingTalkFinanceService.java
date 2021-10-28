@@ -4,6 +4,7 @@
  */
 package com.aliyun.dingtalk.service;
 
+import com.aliyun.dingtalk.model.AvailableTime;
 import com.aliyun.dingtalkbadge_1_0.models.DecodeBadgeCodeResponse;
 import com.aliyun.dingtalkbadge_1_0.models.NotifyBadgeCodePayResultRequest;
 import com.aliyun.dingtalkbadge_1_0.models.NotifyBadgeCodeRefundResultRequest;
@@ -40,14 +41,13 @@ public interface DingTalkFinanceService {
      * @param userCorpRelationType INTERNAL_STAFF：企业内部员工 EXTERNAL_CONTACT：外部联系人 NO_RELATION：普通用户与组织无关 （必填）
      * @param userIdentity         企业内部员工传入staffId，外部联系人传入外部联系人ID，无关系用户传入手机号 （必填）
      * @param gmtExpired           临时码过期时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtStart             有效时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtEnd               结束时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
+     * @param availableTimes       可用时间段, 格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
      * @return 码值
      * @throws Exception
      */
     String createBadgeCodeUserInstance(String requestId, String codeIdentity, String codeValue, String status,
                                        String corpId, String userCorpRelationType, String userIdentity, String gmtExpired,
-                                       String gmtStart, String gmtEnd, Map<String, ?> extInfo) throws Exception;
+                                       List<AvailableTime> availableTimes, Map<String, ?> extInfo) throws Exception;
 
     /**
      * 更新钉工牌用户实例
@@ -64,14 +64,13 @@ public interface DingTalkFinanceService {
      * @param userCorpRelationType INTERNAL_STAFF：企业内部员工 EXTERNAL_CONTACT：外部联系人 NO_RELATION：普通用户与组织无关
      * @param userIdentity         企业内部员工传入staffId，外部联系人传入外部联系人ID，无关系用户传入手机号
      * @param gmtExpired           临时码过期时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtStart             有效时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
-     * @param gmtEnd               结束时间，格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
+     * @param availableTimes       可用时间段, 格式：yyyy-MM-dd HH:mm:ss 注意：时间要精确到秒
      * @return 码ID
      * @throws Exception
      */
     String updateBadgeCodeUserInstance(String codeId, String codeIdentity, String codeValue, String status, String corpId,
-                                       String userCorpRelationType, String userIdentity, String gmtExpired, String gmtStart,
-                                       String gmtEnd, Map<String, ?> extInfo) throws Exception;
+                                       String userCorpRelationType, String userIdentity, String gmtExpired,
+                                       List<AvailableTime> availableTimes, Map<String, ?> extInfo) throws Exception;
 
     /**
      * 解码钉工牌码

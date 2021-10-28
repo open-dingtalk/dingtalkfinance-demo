@@ -6,6 +6,7 @@ package com.aliyun.dingtalk.model;
 
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,13 +48,12 @@ public class UpdateInstanceRequest {
      */
     private String gmtExpired;
     /**
-     * 临时码开始时间
+     * 可用时间
+     * 包含：
+     * gmtStart 开始时间
+     * gmtEnd 结束时间
      */
-    private String gmtStart;
-    /**
-     * 临时码结束时间
-     */
-    private String gmtEnd;
+    private List<AvailableTime> availableTimes;
 
     /**
      * 扩展参数
