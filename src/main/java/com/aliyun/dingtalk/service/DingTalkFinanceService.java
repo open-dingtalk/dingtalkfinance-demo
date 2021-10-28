@@ -90,7 +90,7 @@ public interface DingTalkFinanceService {
      * <p>
      * <p/>
      * 用户使用钉工牌码扫码支付完成后，可调用本接口同步支付结果，并通知用户完成消费，同时为用户记录账单。
-     * https://developers.dingtalk.com/document/app/sync-nail-badge-code-payment-result?spm=a2q3p.21071111.0.0.68331cfa2MUIoT
+     * https://developers.dingtalk.com/document/app/sync-dingtalk-badge-code-payment-result
      * </p>
      *
      * @param payCode              码值（硬件扫描获取码值）
