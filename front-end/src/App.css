@@ -1,0 +1,32 @@
+.App {
+  padding: 24px;
+}
+
+.AppLink {
+  font-size: 14px;
+  line-height: 24px;
+  display: block;
+  color: #006afe;
+}
+.AppLink:hover {
+  cursor: pointer;
+}
+
+.title {
+  height: 36px;
+  line-height: 36px;
+  color: #171a1d;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.littleTitle {
+  height: 24px;
+  line-height: 24px;
+  font-size: 16px;
+  color: #171a1d;
+}
+
+.radioList {
+  margin-bottom: 12px;
+}
