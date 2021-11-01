@@ -55,9 +55,30 @@ dingtalk.suite_key=xxx
 dingtalk.suite_secret=xxx
 dingtalk.suite_ticket=xxx
 ```
-### 运行
-springboot项目本地运行，通过postman测试使用各接口
+### 接口说明
+
+**此处展示企业内部应用的开发方式**
+
 ![image2](https://img.alicdn.com/imgextra/i2/O1CN01QPHKDQ1cHr2sINE5Y_!!6000000003576-2-tps-870-1286.png)
+
+### 修改前端页面
+
+**打开项目，命令行中执行以下命令，编译打包生成build文件**
+
+```shell
+cd front-end
+npm install
+npm run build
+```
+
+**将打包好的静态资源文件放入后端**
+
+![image-20210706173224172](https://img.alicdn.com/imgextra/i2/O1CN01QLp1Qw1TCVrPddfjZ_!!6000000002346-2-tps-322-521.png)
+
+### 启动项目
+
+- 启动SpringBoot
+- 移动端钉钉点击工作台，找到创建的应用，进入应用
 
 ### 效果展示
 
@@ -77,11 +98,11 @@ springboot项目本地运行，通过postman测试使用各接口
 
 ![44](https://img.alicdn.com/imgextra/i3/O1CN01Bqsls41ZVe7q3pcAp_!!6000000003200-2-tps-449-504.png)
 
-扫码钉工牌获取码值
+扫描钉工牌获取码值
 
 ![00](https://img.alicdn.com/imgextra/i1/O1CN01kYJgcb1bzXCmTY1v4_!!6000000003536-2-tps-448-376.png)
 
-码值解码
+钉工牌解码
 
 ![55](https://img.alicdn.com/imgextra/i3/O1CN01rp3kQO2AAhnoxMfMA_!!6000000008163-2-tps-449-262.png)
 
@@ -97,7 +118,9 @@ springboot项目本地运行，通过postman测试使用各接口
 
 ![99](https://img.alicdn.com/imgextra/i2/O1CN01NIpm1B1zZTRpyLLQk_!!6000000006728-2-tps-448-951.png)
 
+验证钉工牌电子码身份
 
+![77](https://img.alicdn.com/imgextra/i2/O1CN01IwzOof1JvGQY3AfqO_!!6000000001090-2-tps-447-73.png)
 
 ## 参考文档
 
