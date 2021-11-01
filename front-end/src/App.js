@@ -22,81 +22,6 @@ class App extends React.Component {
       showType: 0,
     }
   }
-  // addUser(e) {
-  //   let msg = this.state.sendMessage
-  //   msg.teacherList.push({
-  //     id: e.target.value,
-  //     name: e.target.name,
-  //   })
-  //   this.setState({
-  //     sendMessage: msg,
-  //   })
-  //   console.log(JSON.stringify(this.state.sendMessage))
-  // }
-  // setText(e) {
-  //   let msg = this.state.sendMessage
-  //   msg.text = e.target.value
-  //   this.setState({
-  //     sendMessage: msg,
-  //   })
-  // }
-  // sendMsg(e) {
-  //   let msg = this.state.sendMessage
-  //   msg.classId = this.state.classId
-  //   this.setState({
-  //     sendMessage: msg,
-  //   })
-  //   let data = this.state.sendMessage
-  //   data.origin = window.location.origin
-  //   axios
-  //     .post(this.state.domain + "/campus/sendMsg", JSON.stringify(data), {
-  //       headers: { "Content-Type": "application/json" },
-  //     })
-  //     .then((res) => {
-  //       message.success("通知已发出！")
-  //     })
-  //     .catch((error) => {
-  //       alert("tongzhi err " + JSON.stringify(error))
-  //     })
-  // }
-  // getBizId(param) {
-  //   if (param) {
-  //     let arr = param.split("=")
-  //     if (arr) {
-  //       if (arr[0].indexOf("?bizId") !== -1) {
-  //         this.setState({
-  //           bizId: arr[1],
-  //         })
-  //       }
-  //     }
-  //   } else {
-  //     alert("param error!!!", param)
-  //   }
-  // }
-  // finishWork() {
-  //   if (this.state.finish) {
-  //     message.success("已完成")
-  //     return
-  //   }
-  //   axios
-  //     .post(
-  //       this.state.domain + "/campus/updateWork",
-  //       {
-  //         userId: this.state.userId,
-  //         bizId: this.state.bizId,
-  //       },
-  //       { headers: { "Content-Type": "application/json" } }
-  //     )
-  //     .then((res) => {
-  //       alert("完成任务")
-  //       this.setState({
-  //         finish: true,
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       alert(JSON.stringify(error))
-  //     })
-  // }
 
   render() {
     if (this.state.userId === "") {
@@ -106,42 +31,39 @@ class App extends React.Component {
       <div className="App">
         {this.state.showType === 0 && (
           <div>
-            <Button type="primary" onClick={() => this.saveDingTalkFinance()}>
+            <p>
+              <Button type="primary" onClick={() => this.saveDingTalkFinance()}>
               企业配置钉工牌
             </Button>
-            <br />
-            <Button type="primary" onClick={() => this.createDingTalkFinance()}>
+            </p>
+            <p><Button type="primary" onClick={() => this.createDingTalkFinance()}>
               创建个人钉工牌电子码
-            </Button>
-            <br />
-            <Button type="primary" onClick={() => this.updateDingTalkFinance()}>
+            </Button></p>
+            <p><Button type="primary" onClick={() => this.updateDingTalkFinance()}>
               更新个人钉工牌电子码
-            </Button>
-            <br />
-            <Button
+            </Button></p>
+            <p><Button
               type="primary"
               onClick={() => this.setState({ showType: 1 })}
             >
               钉工牌电子码解码
-            </Button>
-            <br />
-            <Button type="primary" onClick={() => this.authDingTalkCode()}>
+            </Button></p>
+            <p><Button type="primary" onClick={() => this.authDingTalkCode()}>
               钉工牌电子码验证
-            </Button>
-            <br />
-            <Button
+            </Button></p>
+            <p><Button
               type="primary"
               onClick={() => this.asyncDingTalkPayResult()}
             >
               钉工牌同步支付结果
-            </Button>
-            <br />
-            <Button
+            </Button></p>
+            <p><Button
               type="primary"
               onClick={() => this.asyncDingTalkReturnResult()}
             >
               钉工牌同步退款结果
-            </Button>
+            </Button></p>
+            
           </div>
         )}
 
@@ -284,7 +206,7 @@ class App extends React.Component {
       })
       .then((res) => {
         if (res.data.success) {
-          message.success("钉工牌电子码解码成功")
+          message.success("钉工牌电子码解码已成功，付款码：" + res.data.body.alipayCode)
         }
       })
       .catch((error) => {
@@ -412,73 +334,6 @@ class App extends React.Component {
         alert("courseList err " + JSON.stringify(error))
       })
   }
-  // newWorkRecord(data) {
-  //   let ids = []
-  //   for (let i = 0; i < this.state.sendMessage.teacherList.length; i++) {
-  //     ids.push(this.state.sendMessage.teacherList[i].id)
-  //   }
-  //   data.ids = ids
-  //   data.url = window.location.origin + data.url
-  //   data.origin = window.location.origin
-  //   axios
-  //     .post(this.state.domain + "/campus/newWork", JSON.stringify(data), {
-  //       headers: { "Content-Type": "application/json" },
-  //     })
-  //     .then((res) => {
-  //       if (res.data.success) {
-  //         message.success("创建任务待办成功！")
-  //       } else {
-  //         message.error("创建任务待办失败！")
-  //       }
-  //       this.setState({
-  //         showType: 1,
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       alert(JSON.stringify(error))
-  //     })
-  // }
-  // chooseDept(e, deptId, deptType, name) {
-  //   console.log("chooseDept deptId : " + deptId)
-  //   if (deptType === "class") {
-  //     this.setState({
-  //       classId: deptId,
-  //       className: name,
-  //     })
-  //     this.getClassUserList(deptId)
-  //   } else {
-  //     this.setState({
-  //       deptId: deptId,
-  //     })
-  //     this.getDeptList(deptId)
-  //   }
-  // }
-  // getClassUserList(classId) {
-  //   axios
-  //     .get(this.state.domain + "/campus/classUserList?classId=" + classId)
-  //     .then((res) => {
-  //       this.setState({
-  //         teachers: res.data.data.result.details,
-  //         showType: 1,
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       alert("class err " + JSON.stringify(error))
-  //     })
-  // }
-  // getDeptList(deptId) {
-  //   axios
-  //     .get(this.state.domain + "/campus/deptList?deptId=" + deptId)
-  //     .then((res) => {
-  //       this.setState({
-  //         deptList: res.data.data.result.details,
-  //         showType: 0,
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       alert("dept err " + JSON.stringify(error))
-  //     })
-  // }
 
   login() {
     axios
@@ -513,7 +368,6 @@ class App extends React.Component {
                   userName: userName,
                 })
               }, 0)
-              _this.getDeptList(0)
             } else {
               alert("login failed --->" + JSON.stringify(res))
             }
