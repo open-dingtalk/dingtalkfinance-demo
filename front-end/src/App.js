@@ -101,7 +101,7 @@ class App extends React.Component {
         }
       })
       .catch((error) => {
-        alert("adjust err " + JSON.stringify(error))
+        alert("saveDingTalkFinance err " + JSON.stringify(error))
       })
   }
   //
@@ -110,9 +110,9 @@ class App extends React.Component {
       requestId: 123456,
       codeIdentity: "DT_VISITOR",
       status: "OPEN",
-      corpId: this.state.corpId, // 活字段 corpId
+      corpId: this.state.corpId, //  corpId
       userCorpRelationType: "INTERNAL_STAFF",
-      userIdentity: this.state.userId, // 活字段 userId
+      userIdentity: this.state.userId, //  userId
       gmtExpired: "2021-11-25 00:00:00",
       availableTimes: [
         {
@@ -145,7 +145,7 @@ class App extends React.Component {
         }
       })
       .catch((error) => {
-        alert("adjust err " + JSON.stringify(error))
+        alert("createDingTalkFinance err " + JSON.stringify(error))
       })
   }
   // 更新个人钉工牌电子码
@@ -156,12 +156,12 @@ class App extends React.Component {
 
     let data = {
       requestId: 123456,
-      codeId: this.state.codeId, // 活字段 code
+      codeId: this.state.codeId, //  code
       codeIdentity: "DT_VISITOR",
       status: "OPEN",
-      corpId: this.state.corpId, // 活字段 corpId
+      corpId: this.state.corpId, //  corpId
       userCorpRelationType: "INTERNAL_STAFF",
-      userIdentity: this.state.userId, // 活字段 userId
+      userIdentity: this.state.userId, //  userId
       gmtExpired: "2021-11-25 00:00:00",
       availableTimes: [
         {
@@ -191,13 +191,13 @@ class App extends React.Component {
         }
       })
       .catch((error) => {
-        alert("adjust err " + JSON.stringify(error))
+        alert("updateDingTalkFinance err " + JSON.stringify(error))
       })
   }
   // 钉工牌电子码解码
   getDingTalkCode(payCode) {
     const data = {
-      payCode, // 活字段 code
+      payCode: payCode, // code
       requestId: "250134742608720142-V0ami1d7o7vap4uwlx",
     }
     axios
@@ -206,20 +206,20 @@ class App extends React.Component {
       })
       .then((res) => {
         if (res.data.success) {
-          message.success("钉工牌电子码解码已成功，付款码：" + res.data.body.alipayCode)
+          message.success("钉工牌电子码解码已成功，付款码：" + res.data.data.body.alipayCode)
         }
       })
       .catch((error) => {
-        alert("courseList err " + JSON.stringify(error))
+        alert("getDingTalkCode err " + JSON.stringify(error))
       })
   }
   // 钉工牌电子码验证
   authDingTalkCode() {
     const data = {
-      corpId: this.state.corpId, // 活字段 corpId
-      payCode: this.state.payCode, // 活字段 code
+      corpId: this.state.corpId, //  corpId
+      payCode: this.state.payCode, //  code
       userCorpRelationType: "INTERNAL_STAFF",
-      userIdentity: this.state.userId, // 活字段 userId
+      userIdentity: this.state.userId, //  userId
       verifyLocation: "未来park",
       verifyResult: true,
       verifyTime: "2021-10-26 10:30:06",
@@ -236,7 +236,7 @@ class App extends React.Component {
         }
       })
       .catch((error) => {
-        alert("courseList err " + JSON.stringify(error))
+        alert("authDingTalkCode err " + JSON.stringify(error))
       })
   }
   // 钉工牌同步支付结果
@@ -244,7 +244,7 @@ class App extends React.Component {
     const data = {
       amount: "0.01",
       chargeAmount: "0",
-      corpId: this.state.corpId, // 活字段 corpId
+      corpId: this.state.corpId, //  corpId
       gmtTradeCreate: "2021-10-26 12:11:24",
       gmtTradeFinish: "2021-10-26 12:11:24",
       merchantName: "杭州钉钉网络科技有限公司",
@@ -267,13 +267,13 @@ class App extends React.Component {
           promotionAmount: "0.00",
         },
       ],
-      payCode: this.state.payCode, // 活字段 code
+      payCode: this.state.payCode, //  code
       promotionAmount: "0",
       remark: "钉钉支付码",
       title: "陈军 下单 0.01 元（数字食堂）",
       tradeNo: "2021102612112383609613ecf6b2e232",
       tradeStatus: "SUCCESS",
-      userId: this.state.userId, // 活字段 userId
+      userId: this.state.userId, //  userId
     }
     axios
       .post(this.state.domain + "/notify", JSON.stringify(data), {
@@ -285,21 +285,21 @@ class App extends React.Component {
         }
       })
       .catch((error) => {
-        alert("courseList err " + JSON.stringify(error))
+        alert("asyncDingTalkPayResult err " + JSON.stringify(error))
       })
   }
   // 钉工牌同步退款结果
   asyncDingTalkReturnResult() {
     const data = {
-      corpId: this.state.corpId, // 活字段 corpId
-      userId: this.state.userId, // 活字段 userId
+      corpId: this.state.corpId, //  corpId
+      userId: this.state.userId, //  userId
       tradeNo: "2021102612112383609613ecf6b2e232",
       refundOrderNo: "2021102612112383609613ecf6b2e223",
       remark: "钉钉退款",
       refundAmount: "0.01",
       refundPromotionAmount: "0.00",
       gmtRefund: "2021-10-26 12:11:24",
-      payCode: this.state.payCode, // 活字段 code
+      payCode: this.state.payCode, //  code
       payChannelDetailList: [
         {
           amount: "0.01",
@@ -331,7 +331,7 @@ class App extends React.Component {
         }
       })
       .catch((error) => {
-        alert("courseList err " + JSON.stringify(error))
+        alert("asyncDingTalkReturnResult err " + JSON.stringify(error))
       })
   }
 
@@ -362,12 +362,10 @@ class App extends React.Component {
               let userId = res.data.data.userId
               let userName = res.data.data.userName
               message.success("登录成功，你好:" + userName)
-              setTimeout(function () {
                 _this.setState({
                   userId: userId,
                   userName: userName,
                 })
-              }, 0)
             } else {
               alert("login failed --->" + JSON.stringify(res))
             }
