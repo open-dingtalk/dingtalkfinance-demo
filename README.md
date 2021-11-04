@@ -56,6 +56,9 @@ dingtalk.suite_secret=xxx
 dingtalk.suite_ticket=xxx
 ```
 ### 接口说明
+**demo依赖链路图**
+
+![image333](https://img.alicdn.com/imgextra/i2/O1CN01gOpgre1IX9y93QDFw_!!6000000000902-2-tps-1780-1132.png)
 
 **此处展示企业内部应用的开发方式**
 
