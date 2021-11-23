@@ -5,6 +5,9 @@ import "./App.css"
 import { message, Button } from "antd"
 import { Link, withRouter } from "react-router-dom"
 import Work from "./components/Work"
+import Create from "./components/Create"
+import Pay from "./components/Pay"
+import Return from "./components/Return"
 import "antd/dist/antd.min.css"
 
 class App extends React.Component {
@@ -20,6 +23,7 @@ class App extends React.Component {
       userName: "",
       payCode: "",
       showType: 0,
+      codeId: ""
     }
   }
 
@@ -36,10 +40,10 @@ class App extends React.Component {
               企业配置钉工牌
             </Button>
             </p>
-            <p><Button type="primary" onClick={() => this.createDingTalkFinance()}>
+            <p><Button type="primary" onClick={() => this.setState({ showType: 2 })}>
               创建个人钉工牌电子码
             </Button></p>
-            <p><Button type="primary" onClick={() => this.updateDingTalkFinance()}>
+            <p><Button type="primary" onClick={() => this.setState({ showType: 3 })}>
               更新个人钉工牌电子码
             </Button></p>
             <p><Button
@@ -49,24 +53,52 @@ class App extends React.Component {
               钉工牌电子码解码
             </Button></p>
             <p><Button type="primary" onClick={() => this.authDingTalkCode()}>
-              钉工牌电子码验证
+              钉工牌同步电子码验证结果
             </Button></p>
             <p><Button
               type="primary"
-              onClick={() => this.asyncDingTalkPayResult()}
+              onClick={() => this.setState({ showType: 4 })}
             >
               钉工牌同步支付结果
             </Button></p>
             <p><Button
               type="primary"
-              onClick={() => this.asyncDingTalkReturnResult()}
+              onClick={() => this.setState({ showType: 5 })}
             >
               钉工牌同步退款结果
             </Button></p>
             
           </div>
         )}
-
+        {/* 同步退款结果 */}
+        {this.state.showType === 5 && (
+            <Return
+                title={"同步退款"}
+                onClick={(e) => this.asyncDingTalkReturnResult(e)}
+            />
+        )}
+        {/* 同步支付结果 */}
+        {this.state.showType === 4 && (
+            <Pay
+                title={"同步支付"}
+                onClick={(e) => this.asyncDingTalkPayResult(e)}
+            />
+        )}
+        {/* 创建电子码 */}
+        {this.state.showType === 2 && (
+            <Create
+                title={"创建电子码"}
+                onClick={(e) => this.createDingTalkFinance(e)}
+            />
+        )}
+        {/* 更新电子码 */}
+        {this.state.showType === 3 && (
+            <Create
+                title={"更新电子码"}
+                onClick={(e) => this.updateDingTalkFinance(e)}
+            />
+        )}
+        {/* 电子码解码 */}
         {this.state.showType === 1 && (
           <Work
             onClick={(data) => {
@@ -86,7 +118,7 @@ class App extends React.Component {
     let data = {
       codeIdentity: "DT_VISITOR",
       status: "OPEN",
-      corpId: "ding3954e38839604bd524f2f5cc6abecb85",
+      corpId: this.state.corpId,
       extInfo: {
         xx_key: "xx_value",
       },
@@ -104,28 +136,30 @@ class App extends React.Component {
         alert("saveDingTalkFinance err " + JSON.stringify(error))
       })
   }
+
   //
-  createDingTalkFinance(e) {
+  createDingTalkFinance(userData) {
+    const { applyTime,applicantName,visitorName,visitorMobile } = userData
     let data = {
-      requestId: 123456,
+      requestId: "qwerttyui",
       codeIdentity: "DT_VISITOR",
       status: "OPEN",
       corpId: this.state.corpId, //  corpId
       userCorpRelationType: "INTERNAL_STAFF",
       userIdentity: this.state.userId, //  userId
-      gmtExpired: "2021-11-25 00:00:00",
+      gmtExpired: "2021-11-28 00:00:00",
       availableTimes: [
         {
-          gmtStart: "2021-10-25 15:00:00",
-          gmtEnd: "2021-11-25 00:00:00",
+          gmtStart: "2021-10-28 15:00:00",
+          gmtEnd: "2021-11-28 00:00:00",
         },
       ],
       extInfo: {
         corpAddress: "杭州未来组织park",
-        applicantName: "张三",
-        applyTime: "2021-10-25 12:12:12",
-        visitorName: "李四",
-        visitorMobile: "86-12345678901",
+        applicantName: applicantName,
+        applyTime: applyTime,
+        visitorName: visitorName,
+        visitorMobile: visitorMobile,
         visitorCorpInfo: "钉钉网络",
         visitorExtInfo: "访客ID：20210907001",
         remarks: "欢迎光临",
@@ -141,6 +175,7 @@ class App extends React.Component {
           message.success("创建成功，请到手机钉钉--右上角+--钉工牌中查看")
           this.setState({
             codeId: res.data.data,
+            showType: 0
           })
         }
       })
@@ -149,32 +184,31 @@ class App extends React.Component {
       })
   }
   // 更新个人钉工牌电子码
-  updateDingTalkFinance(e) {
-    if (!this.state.codeId) {
-      message.error("请先创建钉工牌电子码")
-    }
-
+  updateDingTalkFinance(userData) {
+    // if (!this.state.codeId) {
+    //   message.error("请先创建钉工牌电子码")
+    // }
+    const { applyTime,applicantName,visitorName,visitorMobile } = userData
     let data = {
-      requestId: 123456,
       codeId: this.state.codeId, //  code
       codeIdentity: "DT_VISITOR",
       status: "OPEN",
       corpId: this.state.corpId, //  corpId
       userCorpRelationType: "INTERNAL_STAFF",
       userIdentity: this.state.userId, //  userId
-      gmtExpired: "2021-11-25 00:00:00",
+      gmtExpired: "2021-11-28 00:00:00",
       availableTimes: [
         {
-          gmtStart: "2021-10-25 15:00:00",
-          gmtEnd: "2021-11-25 00:00:00",
+          gmtStart: "2021-10-28 15:00:00",
+          gmtEnd: "2021-11-28 00:00:00",
         },
       ],
       extInfo: {
         corpAddress: "杭州未来组织park",
-        applicantName: "瀚博",
-        applyTime: "2021-10-25 12:12:12",
-        visitorName: "郝汉森",
-        visitorMobile: "86-12345678901",
+        applicantName: applicantName,
+        applyTime: applyTime,
+        visitorName: visitorName,
+        visitorMobile: visitorMobile,
         visitorCorpInfo: "海云钉网络",
         visitorExtInfo: "访客ID：20210907001",
         remarks: "欢迎光临",
@@ -187,6 +221,9 @@ class App extends React.Component {
       })
       .then((res) => {
         if (res.data.success) {
+          this.setState({
+            showType: 0
+          })
           message.success("更新成功，请到手机钉钉--右上角+--钉工牌中查看")
         }
       })
@@ -198,7 +235,7 @@ class App extends React.Component {
   getDingTalkCode(payCode) {
     const data = {
       payCode: payCode, // code
-      requestId: "250134742608720142-V0ami1d7o7vap4uwlx",
+      requestId: "250134742608720142-V0ami1d7o7vap4uwlx", // 随机生成即可
     }
     axios
       .post(this.state.domain + "/decode", JSON.stringify(data), {
@@ -206,7 +243,7 @@ class App extends React.Component {
       })
       .then((res) => {
         if (res.data.success) {
-          message.success("钉工牌电子码解码已成功，付款码：" + res.data.data.body.alipayCode)
+          message.success("钉工牌电子码解码成功！付款码：" + res.data.data.body.alipayCode)
         }
       })
       .catch((error) => {
@@ -222,7 +259,7 @@ class App extends React.Component {
       userIdentity: this.state.userId, //  userId
       verifyLocation: "未来park",
       verifyResult: true,
-      verifyTime: "2021-10-26 10:30:06",
+      verifyTime: "2021-10-28 10:30:06",
     }
     axios
       .post(this.state.domain + "/verify", JSON.stringify(data), {
@@ -230,9 +267,9 @@ class App extends React.Component {
       })
       .then((res) => {
         if (res.data.success) {
-          message.success("钉工牌电子码验证通过")
+          message.success("钉工牌验证同步成功")
         } else {
-          message.error("暂无权限")
+          message.error("钉工牌验证同步失败")
         }
       })
       .catch((error) => {
@@ -240,14 +277,15 @@ class App extends React.Component {
       })
   }
   // 钉工牌同步支付结果
-  asyncDingTalkPayResult() {
+  asyncDingTalkPayResult(payData) {
+    const { merchantName,title,amount,gmtTradeCreate,gmtTradeFinish } = payData
     const data = {
-      amount: "0.01",
+      amount: amount,
       chargeAmount: "0",
       corpId: this.state.corpId, //  corpId
-      gmtTradeCreate: "2021-10-26 12:11:24",
-      gmtTradeFinish: "2021-10-26 12:11:24",
-      merchantName: "杭州钉钉网络科技有限公司",
+      gmtTradeCreate: gmtTradeCreate,
+      gmtTradeFinish: gmtTradeFinish,
+      merchantName: merchantName,
       payChannelDetailList: [
         {
           amount: "0.01",
@@ -256,8 +294,8 @@ class App extends React.Component {
               amount: "0.01",
               extInfo: "",
               fundToolName: "数字食堂余额",
-              gmtCreate: "2021-10-26 12:11:24",
-              gmtFinish: "2021-10-26 12:11:24",
+              gmtCreate: "2021-10-28 12:11:24",
+              gmtFinish: "2021-10-28 12:11:24",
               promotionFundTool: false,
             },
           ],
@@ -270,7 +308,7 @@ class App extends React.Component {
       payCode: this.state.payCode, //  code
       promotionAmount: "0",
       remark: "钉钉支付码",
-      title: "陈军 下单 0.01 元（数字食堂）",
+      title: title,
       tradeNo: "2021102612112383609613ecf6b2e232",
       tradeStatus: "SUCCESS",
       userId: this.state.userId, //  userId
@@ -289,16 +327,17 @@ class App extends React.Component {
       })
   }
   // 钉工牌同步退款结果
-  asyncDingTalkReturnResult() {
+  asyncDingTalkReturnResult(returnData) {
+    const { refundAmount,gmtRefund} = returnData
     const data = {
       corpId: this.state.corpId, //  corpId
       userId: this.state.userId, //  userId
       tradeNo: "2021102612112383609613ecf6b2e232",
       refundOrderNo: "2021102612112383609613ecf6b2e223",
       remark: "钉钉退款",
-      refundAmount: "0.01",
+      refundAmount: refundAmount,
       refundPromotionAmount: "0.00",
-      gmtRefund: "2021-10-26 12:11:24",
+      gmtRefund: gmtRefund,
       payCode: this.state.payCode, //  code
       payChannelDetailList: [
         {
@@ -308,8 +347,8 @@ class App extends React.Component {
               amount: "0.01",
               extInfo: "",
               fundToolName: "数字食堂余额",
-              gmtCreate: "2021-10-26 12:11:24",
-              gmtFinish: "2021-10-26 12:11:24",
+              gmtCreate: "2021-10-28 12:11:24",
+              gmtFinish: "2021-10-28 12:11:24",
               promotionFundTool: false,
             },
           ],
@@ -341,7 +380,6 @@ class App extends React.Component {
       .then((res) => {
         if (res.data) {
           this.loginAction(res.data)
-          this.setState({ corpId: res.data })
         }
       })
       .catch((error) => {
@@ -365,6 +403,7 @@ class App extends React.Component {
                 _this.setState({
                   userId: userId,
                   userName: userName,
+                  corpId: corpId,
                 })
             } else {
               alert("login failed --->" + JSON.stringify(res))

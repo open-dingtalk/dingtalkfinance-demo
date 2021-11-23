@@ -39,7 +39,58 @@
 ```shell
 git clone https://github.com/open-dingtalk/dingtalkfinance-demo.git
 ```
+## 脚本启动（推荐）
 
+### 脚本说明
+
+脚本中内置了内网穿透工具，不需要再额外启动
+
+```shell
+dingBoot-linux.sh     # linux版本
+dingBoot-mac.sh       # mac版本
+dingBoot-windows.bat  # windows版本
+```
+
+### 启动命令
+
+执行时将其中参数替换为对应的应用参数，在backend目录下执行（脚本同级目录），参数获取方法：
+
+1. 获取corpId——开发者后台首页：https://open-dev.dingtalk.com/#/index
+2. 进入应用开发-企业内部开发-点击进入应用-基础信息-获取appKey、appSecret、agentId
+
+- **启动linux脚本**
+
+```shell
+./dingBoot-linux.sh start {项目名} {端口号} {appKey} {appSecret} {agentId} {corpId}
+```
+- **mac系统(mac m1芯片暂不支持)**
+
+```shell
+./dingBoot-mac.sh start {项目名} {端口号} {appKey} {appSecret} {agentId} {corpId}
+```
+- **windows系统 使用cmd命令行启动**
+
+```shell
+./dingBoot-windows.bat {项目名} {端口号} {appKey} {appSecret} {agentId} {corpId}
+```
+
+- **示例（linux脚本执行）**
+
+```sh
+ ./dingBoot-linux.sh start h5-demo 8080 ding1jmkwa4o19bxxxx ua2qNVhleIx14ld6xgoZqtg84EE94sbizRvCimfXrIqYCeyj7b8QvqYxxx 122549400 ding9f50b15bccd1000
+```
+
+### 启动后配置
+
+1. **配置地址**
+
+启动完成会自动生成临时域名，配置方法：进入开发者后台->进入应用->开发管理->应用首页地址和PC端首页地址
+
+2. **发布应用**
+
+配置好地址后进入“版本管理与发布页面”，发布应用，发布后即可在PC钉钉或移动钉钉工作台访问应用
+
+## 手动启动
 ### 获取相应参数
 
 获取到以下参数，修改application.properties文件内容
