@@ -12,10 +12,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version $Id: DingtalkFinanceDemoApplication.java, v 0.1 2021-10-21 下午8:37 shiyan Exp $$
  */
 @SpringBootApplication
-public class DingtalkFinanceDemoApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(DingtalkFinanceDemoApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
