@@ -283,7 +283,7 @@ class App extends React.Component {
       amount: amount,
       chargeAmount: "0",
       corpId: this.state.corpId, //  corpId
-      gmtTradeCreate: gmtTradeCreate,
+      gmtTradeCreate: gmtTradeFinish,
       gmtTradeFinish: gmtTradeFinish,
       merchantName: merchantName,
       payChannelDetailList: [
@@ -300,7 +300,7 @@ class App extends React.Component {
             },
           ],
           payChannelName: "数字食堂余额",
-          payChannelOrderNo: "37164671863227332",
+          payChannelOrderNo: "37164671863227333",
           payChannelType: "BALANCE",
           promotionAmount: "0.00",
         },
@@ -309,7 +309,7 @@ class App extends React.Component {
       promotionAmount: "0",
       remark: "钉钉支付码",
       title: title,
-      tradeNo: "2021102612112383609613ecf6b2e232",
+      tradeNo: "2021102612112383609613ecf6b2e222",
       tradeStatus: "SUCCESS",
       userId: this.state.userId, //  userId
     }
@@ -320,6 +320,9 @@ class App extends React.Component {
       .then((res) => {
         if (res.data.success) {
           message.success("支付结果同步成功")
+          this.setState({
+            showType: 0
+          })
         }
       })
       .catch((error) => {
@@ -332,8 +335,8 @@ class App extends React.Component {
     const data = {
       corpId: this.state.corpId, //  corpId
       userId: this.state.userId, //  userId
-      tradeNo: "2021102612112383609613ecf6b2e232",
-      refundOrderNo: "2021102612112383609613ecf6b2e223",
+      tradeNo: "2021102612112383609613ecf6b2e222",
+      refundOrderNo: "2021102612112383609613ecf6b2e222",
       remark: "钉钉退款",
       refundAmount: refundAmount,
       refundPromotionAmount: "0.00",
@@ -353,8 +356,8 @@ class App extends React.Component {
             },
           ],
           payChannelName: "数字食堂余额",
-          payChannelOrderNo: "37164671863227332",
-          payChannelRefundOrderNo: "37164671864327332",
+          payChannelOrderNo: "37164671863227333",
+          payChannelRefundOrderNo: "37164671863227333",
           payChannelType: "BALANCE",
           promotionAmount: "0.00",
         },
@@ -367,6 +370,9 @@ class App extends React.Component {
       .then((res) => {
         if (res.data.success) {
           message.success("退款结果同步成功")
+          this.setState({
+            showType: 0
+          })
         }
       })
       .catch((error) => {

@@ -4,6 +4,7 @@
  */
 package com.aliyun.dingtalk.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyun.dingtalk.common.AppConfig;
 import com.aliyun.dingtalk.model.CreateInstanceRequest;
 import com.aliyun.dingtalk.model.DecodeRequest;
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * 钉工牌三方企业内部应用Demo，完整钉工牌接入流程；
@@ -234,8 +239,15 @@ public class DingTalkFinanceServiceController {
      */
     @PostMapping("/notify")
     public ServiceResult notifyBadgeCodePayResult(@RequestBody NotifyRequest notifyRequest) {
-
+        System.out.println("同步支付 1：" + JSON.toJSONString(notifyRequest));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         try {
+            Date createDate = dateFormat.parse(notifyRequest.getGmtTradeCreate().replace("Z","+0000"));
+            Date finishDate = dateFormat.parse(notifyRequest.getGmtTradeFinish().replace("Z","+0000"));
+            notifyRequest.setGmtTradeCreate(format.format(createDate));
+            notifyRequest.setGmtTradeFinish(format.format(finishDate));
+            System.out.println("同步支付 2：" + JSON.toJSONString(notifyRequest));
             return ServiceResult.getSuccessResult(dingTalkFinanceService.notifyBadgeCodePayResult(notifyRequest.getPayCode(), notifyRequest.getCorpId(),
                     notifyRequest.getUserId(), notifyRequest.getGmtTradeCreate(), notifyRequest.getGmtTradeFinish(), notifyRequest.getTradeNo(),
                     notifyRequest.getTradeStatus(), notifyRequest.getTitle(), notifyRequest.getRemark(), notifyRequest.getAmount(),
@@ -285,8 +297,12 @@ public class DingTalkFinanceServiceController {
      */
     @PostMapping("/refund")
     public ServiceResult notifyBadgeCodeRefundResult(@RequestBody NotifyRefundRequest notifyRefundRequest) {
-
+        System.out.println("同步退款：" + JSON.toJSONString(notifyRefundRequest));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         try {
+            Date refundDate = dateFormat.parse(notifyRefundRequest.getGmtRefund().replace("Z","+0000"));
+            notifyRefundRequest.setGmtRefund(format.format(refundDate));
             return ServiceResult.getSuccessResult(dingTalkFinanceService.notifyBadgeCodeRefundResult(notifyRefundRequest.getCorpId(), notifyRefundRequest.getUserId(),
                     notifyRefundRequest.getTradeNo(), notifyRefundRequest.getRefundOrderNo(), notifyRefundRequest.getRemark(), notifyRefundRequest.getRefundAmount(),
                     notifyRefundRequest.getRefundPromotionAmount(), notifyRefundRequest.getGmtRefund(), notifyRefundRequest.getPayCode(), notifyRefundRequest.getPayChannelDetailList()));

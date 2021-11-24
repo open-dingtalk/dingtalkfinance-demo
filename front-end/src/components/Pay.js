@@ -28,7 +28,7 @@ const Pay = (props) => {
                 <Form.Item
                     label="交易开始时间"
                     name="gmtTradeCreate"
-                    rules={[{ required: true, message: "交易开始时间必选" }]}
+                    // rules={[{ required: true, message: "交易开始时间必选" }]}
                 >
                     <div className="table">
                         <Button type="primary" onClick={() => setPickerV(true)}>
