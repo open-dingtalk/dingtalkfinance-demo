@@ -8,6 +8,7 @@ import Work from "./components/Work"
 import Create from "./components/Create"
 import Pay from "./components/Pay"
 import Return from "./components/Return"
+import moment from 'moment'
 import "antd/dist/antd.min.css"
 
 class App extends React.Component {
@@ -23,7 +24,10 @@ class App extends React.Component {
       userName: "",
       payCode: "",
       showType: 0,
-      codeId: ""
+      codeId: "",
+      now: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      monthLater: moment().add(30,'days').format("YYYY-MM-DD HH:mm:ss"),
+      requestId: this.randomString()
     }
   }
 
@@ -141,17 +145,17 @@ class App extends React.Component {
   createDingTalkFinance(userData) {
     const { applyTime,applicantName,visitorName,visitorMobile } = userData
     let data = {
-      requestId: "qwertyyuizxv",
+      requestId: this.state.requestId,
       codeIdentity: "DT_VISITOR",
       status: "OPEN",
       corpId: this.state.corpId, //  corpId
       userCorpRelationType: "INTERNAL_STAFF",
       userIdentity: this.state.userId, //  userId
-      gmtExpired: "2021-11-29 00:00:00",
+      gmtExpired: this.state.monthLater,
       availableTimes: [
         {
-          gmtStart: "2021-10-29 15:00:00",
-          gmtEnd: "2021-11-29 00:00:00",
+          gmtStart: this.state.now,
+          gmtEnd: this.state.monthLater,
         },
       ],
       extInfo: {
@@ -196,11 +200,11 @@ class App extends React.Component {
       corpId: this.state.corpId, //  corpId
       userCorpRelationType: "INTERNAL_STAFF",
       userIdentity: this.state.userId, //  userId
-      gmtExpired: "2021-11-29 00:00:00",
+      gmtExpired: this.state.monthLater,
       availableTimes: [
         {
-          gmtStart: "2021-10-29 15:00:00",
-          gmtEnd: "2021-11-29 00:00:00",
+          gmtStart: this.state.now,
+          gmtEnd: this.state.monthLater,
         },
       ],
       extInfo: {
@@ -235,7 +239,7 @@ class App extends React.Component {
   getDingTalkCode(payCode) {
     const data = {
       payCode: payCode, // code
-      requestId: "250134742608720142-V0ami1d7o7vapsdfe", // 随机生成即可
+      requestId: this.state.requestId,
     }
     axios
       .post(this.state.domain + "/decode", JSON.stringify(data), {
@@ -259,7 +263,7 @@ class App extends React.Component {
       userIdentity: this.state.userId, //  userId
       verifyLocation: "未来park",
       verifyResult: true,
-      verifyTime: "2021-10-29 10:30:06",
+      verifyTime: this.state.now,
     }
     axios
       .post(this.state.domain + "/verify", JSON.stringify(data), {
@@ -294,13 +298,13 @@ class App extends React.Component {
               amount: "0.01",
               extInfo: "",
               fundToolName: "数字食堂余额",
-              gmtCreate: "2021-10-29 12:11:24",
-              gmtFinish: "2021-10-29 12:11:24",
+              gmtCreate: this.state.now,
+              gmtFinish: this.state.now,
               promotionFundTool: false,
             },
           ],
           payChannelName: "数字食堂余额",
-          payChannelOrderNo: "37164671863227444",
+          payChannelOrderNo: "37164671863227445",
           payChannelType: "BALANCE",
           promotionAmount: "0.00",
         },
@@ -309,7 +313,7 @@ class App extends React.Component {
       promotionAmount: "0",
       remark: "钉钉支付码",
       title: title,
-      tradeNo: "2021102612112383609613ecf6b2e444",
+      tradeNo: this.randomString(),
       tradeStatus: "SUCCESS",
       userId: this.state.userId, //  userId
     }
@@ -335,8 +339,8 @@ class App extends React.Component {
     const data = {
       corpId: this.state.corpId, //  corpId
       userId: this.state.userId, //  userId
-      tradeNo: "2021102612112383609613ecf6b2e444",
-      refundOrderNo: "2021102612112383609613ecf6b2e444",
+      tradeNo: this.randomString(),
+      refundOrderNo: this.randomString(),
       remark: "钉钉退款",
       refundAmount: refundAmount,
       refundPromotionAmount: "0.00",
@@ -350,14 +354,14 @@ class App extends React.Component {
               amount: "0.01",
               extInfo: "",
               fundToolName: "数字食堂余额",
-              gmtCreate: "2021-10-29 12:11:24",
-              gmtFinish: "2021-10-29 12:11:24",
+              gmtCreate: this.state.now,
+              gmtFinish: this.state.now,
               promotionFundTool: false,
             },
           ],
           payChannelName: "数字食堂余额",
-          payChannelOrderNo: "37164671863227445",
-          payChannelRefundOrderNo: "37164671863227445",
+          payChannelOrderNo: "37164671863227444",
+          payChannelRefundOrderNo: "37164671863227446",
           payChannelType: "BALANCE",
           promotionAmount: "0.00",
         },
@@ -378,6 +382,17 @@ class App extends React.Component {
       .catch((error) => {
         alert("asyncDingTalkReturnResult err " + JSON.stringify(error))
       })
+  }
+
+  randomString(len) {
+    len = len || 32;
+    let chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+    let maxPos = chars.length;
+    let pwd = '';
+    for (let i = 0; i < len; i++) {
+      pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
   }
 
   login() {
