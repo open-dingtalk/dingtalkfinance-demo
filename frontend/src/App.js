@@ -27,7 +27,7 @@ class App extends React.Component {
       codeId: "",
       now: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       monthLater: moment().add(30,'days').format("YYYY-MM-DD HH:mm:ss"),
-      requestId: this.randomString()
+      requestId: this.randomNum(6)
     }
   }
 
@@ -292,10 +292,10 @@ class App extends React.Component {
       merchantName: merchantName,
       payChannelDetailList: [
         {
-          amount: "0.01",
+          amount: amount,
           fundToolDetailList: [
             {
-              amount: "0.01",
+              amount: amount,
               extInfo: "",
               fundToolName: "数字食堂余额",
               gmtCreate: this.state.now,
@@ -313,7 +313,7 @@ class App extends React.Component {
       promotionAmount: "0",
       remark: "钉钉支付码",
       title: title,
-      tradeNo: this.randomString(),
+      tradeNo: this.randomString(12),
       tradeStatus: "SUCCESS",
       userId: this.state.userId, //  userId
     }
@@ -339,8 +339,8 @@ class App extends React.Component {
     const data = {
       corpId: this.state.corpId, //  corpId
       userId: this.state.userId, //  userId
-      tradeNo: this.randomString(),
-      refundOrderNo: this.randomString(),
+      tradeNo: this.randomString(12),
+      refundOrderNo: this.randomString(12),
       remark: "钉钉退款",
       refundAmount: refundAmount,
       refundPromotionAmount: "0.00",
@@ -348,10 +348,10 @@ class App extends React.Component {
       payCode: this.state.payCode, //  code
       payChannelDetailList: [
         {
-          amount: "0.01",
+          amount: refundAmount,
           fundToolDetailList: [
             {
-              amount: "0.01",
+              amount: refundAmount,
               extInfo: "",
               fundToolName: "数字食堂余额",
               gmtCreate: this.state.now,
@@ -382,6 +382,17 @@ class App extends React.Component {
       .catch((error) => {
         alert("asyncDingTalkReturnResult err " + JSON.stringify(error))
       })
+  }
+
+  randomNum(len) {
+    len = len || 16;
+    let chars = '1234567890';
+    let maxPos = chars.length;
+    let pwd = '';
+    for (let i = 0; i < len; i++) {
+      pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
   }
 
   randomString(len) {
