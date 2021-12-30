@@ -40,7 +40,7 @@ const Create = (props) => {
               onConfirm={(val, s) => {
                 settime(val)
                 form.setFieldsValue({
-                  applyTime: val,
+                  applyTime: moment(val).format("YYYY-MM-DD HH:mm:ss"),
                 })
               }}
           >

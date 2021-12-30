@@ -40,7 +40,7 @@ const Return = (props) => {
                         onConfirm={(val, s) => {
                             settime(val)
                             form.setFieldsValue({
-                                gmtRefund: val,
+                                gmtRefund: moment(val).format("YYYY-MM-DD HH:mm:ss"),
                             })
                         }}
                     >

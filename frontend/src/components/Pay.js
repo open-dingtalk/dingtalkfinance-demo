@@ -46,7 +46,7 @@ const Pay = (props) => {
                         onConfirm={(val, s) => {
                             settime(val)
                             form.setFieldsValue({
-                                gmtTradeCreate: val,
+                                gmtTradeCreate: moment(val).format("YYYY-MM-DD HH:mm:ss"),
                             })
                         }}
                     >
@@ -78,7 +78,7 @@ const Pay = (props) => {
                         onConfirm={(val, s) => {
                             settime(val)
                             form.setFieldsValue({
-                                gmtTradeFinish: val,
+                                gmtTradeFinish: moment(val).format("YYYY-MM-DD HH:mm:ss"),
                             })
                         }}
                     >
